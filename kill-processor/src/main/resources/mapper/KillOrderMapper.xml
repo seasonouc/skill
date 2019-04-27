@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanson.test.skill.dao.KillOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hanson.test.skill.model.KillOrder">
+    <id column="oder_id" jdbcType="BIGINT" property="oderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="pay_status" jdbcType="BIT" property="payStatus" />
+    <result column="oder_date" jdbcType="DATE" property="oderDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oder_id, user_id, product_id, number, pay_status, oder_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kill_oder_list
+    where oder_id = #{oderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from kill_oder_list
+    where oder_id = #{oderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hanson.test.skill.model.KillOrder">
+    insert into kill_oder_list (oder_id, user_id, product_id, 
+      number, pay_status, oder_date
+      )
+    values (#{oderId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, 
+      #{number,jdbcType=INTEGER}, #{payStatus,jdbcType=BIT}, #{oderDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hanson.test.skill.model.KillOrder">
+    insert into kill_oder_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oderId != null">
+        oder_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="oderDate != null">
+        oder_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oderId != null">
+        #{oderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="oderDate != null">
+        #{oderDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hanson.test.skill.model.KillOrder">
+    update kill_oder_list
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="oderDate != null">
+        oder_date = #{oderDate,jdbcType=DATE},
+      </if>
+    </set>
+    where oder_id = #{oderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hanson.test.skill.model.KillOrder">
+    update kill_oder_list
+    set user_id = #{userId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      number = #{number,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=BIT},
+      oder_date = #{oderDate,jdbcType=DATE}
+    where oder_id = #{oderId,jdbcType=BIGINT}
+  </update>
+</mapper>
